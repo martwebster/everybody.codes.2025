@@ -7,3 +7,6 @@ A mysterious, oversized egg appears on a mountain village blacksmith's doorstep.
 The narrative invites you to imagine being the newly hatched creature: where did you come from, who will you become, and what destiny awaits? The story sets a whimsical, mythic tone for the event, promising puzzles and challenges inspired by this hybrid creature and the warmth of the forge.
 
 Event page: https://everybody.codes/event/2025/quests
+
+## Sample structure
+
