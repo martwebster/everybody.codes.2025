@@ -8,3 +8,4 @@ Copy over the full contents of the folders, renaming all instances of "dayx" in 
 
 If there are no other day folders, then start with day1.
 
+Do not run the tests.
