@@ -10,7 +10,7 @@ describe(`day ${dayNumber}`, () => {
     })
 
     test('part1', () => {
-        const data = readTestData(`./src/day${dayNumber}/input.txt`);
+        const data = readTestData(`./src/day${dayNumber}/notes1.txt`);
         const sum = data.map(line => exampleFunction(line)).sum();
         expect(sum).toBe(6);
     })
