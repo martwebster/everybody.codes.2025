@@ -15,23 +15,23 @@ export const findName = (names: string, directions: string): string => {
     return allNamnes[index];
 }
 
-class LinkedName {
+class LinkedNode {
     name: string;
-    previous?: LinkedName;
-    next?: LinkedName;
+    previous?: LinkedNode;
+    next?: LinkedNode;
 
     constructor(name: string) {
         this.name = name;
     }
 }
 
-export const findCircleName = (names: string, directions: string): string => {
+const buildLinkedList = (names: string) : Array<LinkedNode> =>{
     const allNamnes = names.split(",")
 
-    var previous: LinkedName| undefined;
-    const linkedNames: Array<LinkedName>= [];
+    var previous: LinkedNode| undefined;
+    const linkedNames: Array<LinkedNode>= [];
     for (var name of allNamnes){
-        var linkedName = new LinkedName(name);
+        var linkedName = new LinkedNode(name);
         linkedName.previous = previous;
         linkedNames.push(linkedName)
         if (previous){
@@ -41,11 +41,15 @@ export const findCircleName = (names: string, directions: string): string => {
     }
     linkedNames.last()!.next = linkedNames.first();
     linkedNames.first()!.previous = linkedNames.last();
-    
+    return linkedNames;
+}
 
-    const allDirections = directions.split(",")
+export const findCircleName = (names: string, directions: string): string => {
+    
+    var linkedNames = buildLinkedList(names);
+    
     var currentName = linkedNames[0];
-    for (var direction of allDirections){
+    for (var direction of directions.split(",")){
         var left = direction.startsWith("L")
         var duration = Number(direction.substring(1));
         
@@ -61,24 +65,7 @@ export const findCircleName = (names: string, directions: string): string => {
     return currentName.name;
 }
 
-const buildLinkedList = (names: string) : Array<LinkedName> =>{
-    const allNamnes = names.split(",")
 
-    var previous: LinkedName| undefined;
-    const linkedNames: Array<LinkedName>= [];
-    for (var name of allNamnes){
-        var linkedName = new LinkedName(name);
-        linkedName.previous = previous;
-        linkedNames.push(linkedName)
-        if (previous){
-            previous.next = linkedName;
-        }
-        previous = linkedName;
-    }
-    linkedNames.last()!.next = linkedNames.first();
-    linkedNames.first()!.previous = linkedNames.last();
-    return linkedNames;
-}
 
 export const swapCircleName = (names: string, directions: string): string => {
     
@@ -108,7 +95,3 @@ export const swapCircleName = (names: string, directions: string): string => {
     }
     return linkedNames[0].name;
 }
-
-
-
-
