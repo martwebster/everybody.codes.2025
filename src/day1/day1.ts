@@ -1,97 +1,55 @@
+import { LinkedList } from "../utility/LinkedList";
+
+
+// Part 1
 export const findName = (names: string, directions: string): string => {
-
-    const allNamnes = names.split(",")
-    const allDirections = directions.split(",")
-    var index = 0;
-    for (var direction of allDirections){
-        var left = direction.startsWith("L")
-        var duration = Number(direction.substring(1));
-        if (left){
-            index = Math.max(0, index - duration)
-        } else{
-            index = Math.min(allNamnes.length-1, index + duration )
-        }
-    }
-    return allNamnes[index];
-}
-
-class LinkedNode {
-    name: string;
-    previous?: LinkedNode;
-    next?: LinkedNode;
-
-    constructor(name: string) {
-        this.name = name;
-    }
-}
-
-const buildLinkedList = (names: string) : Array<LinkedNode> =>{
-    const allNamnes = names.split(",")
-
-    var previous: LinkedNode| undefined;
-    const linkedNames: Array<LinkedNode>= [];
-    for (var name of allNamnes){
-        var linkedName = new LinkedNode(name);
-        linkedName.previous = previous;
-        linkedNames.push(linkedName)
-        if (previous){
-            previous.next = linkedName;
-        }
-        previous = linkedName;
-    }
-    linkedNames.last()!.next = linkedNames.first();
-    linkedNames.first()!.previous = linkedNames.last();
-    return linkedNames;
-}
-
-export const findCircleName = (names: string, directions: string): string => {
     
-    var linkedNames = buildLinkedList(names);
-    
-    var currentName = linkedNames[0];
+    // Create a linked List that is not in a cirle
+    var linkedNames = LinkedList.from(names.split(","), false);
     for (var direction of directions.split(",")){
-        var left = direction.startsWith("L")
         var duration = Number(direction.substring(1));
-        
-        for (var index = 0; index< duration; index++){
-            if (left){
-                currentName = currentName.previous!;
-            } else{
-                currentName = currentName.next!;
-            }
-        }
-        console.log(currentName.name);
+        direction.startsWith("L")
+            ? linkedNames.previous(duration)
+            : linkedNames.next(duration);
     }
-    return currentName.name;
+    return linkedNames.currentItem.value;
 }
 
+// part 2
+export const findCircleName = (names: string, directions: string): string|undefined => {
+    
+    // Create a linked List in a cirle, this true parameter joins the first and last together
+    var linkedNames = LinkedList.from(names.split(","), true);
+    
+    for (var direction of directions.split(",")){
+        var duration = Number(direction.substring(1));
 
+        direction.startsWith("L")
+            ? linkedNames.previous(duration)
+            : linkedNames.next(duration);
+        
+        console.log(linkedNames.currentItem.value);
+    }
+    return linkedNames.currentItem.value;
+}
 
+// part 3
 export const swapCircleName = (names: string, directions: string): string => {
     
-    var linkedNames = buildLinkedList(names);
+    var linkedNames = LinkedList.from(names.split(","), true);
 
-    const allDirections = directions.split(",")
+    for (var direction of directions.split(",")){
+        var startName = linkedNames.currentItem;
 
-    for (var direction of allDirections){
-        var currentName = linkedNames[0];
-        var startName = currentName;
-
-        var left = direction.startsWith("L")
         var duration = Number(direction.substring(1));
         
-        for (var index = 0; index< duration; index++){
-            if (left){
-                currentName = currentName.previous!;
-            } else{
-                currentName = currentName.next!;
-            }
-        }
-        var endName= currentName;
-        console.log("Swapping", startName.name, endName.name)
-        var tempName = startName.name;
-        startName.name = endName.name;
-        endName.name = tempName;
+        const endName = direction.startsWith("L")
+            ? linkedNames.previous(duration)
+            : linkedNames.next(duration);
+
+        linkedNames.swapValues(startName, endName);
+
+        linkedNames.currentItem = linkedNames.items[0];
     }
-    return linkedNames[0].name;
+    return linkedNames.currentItem.value;
 }

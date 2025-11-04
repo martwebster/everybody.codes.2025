@@ -16,11 +16,9 @@ describe(`day 1`, () => {
         const directions = "R3,L2,R3,L1";
         
         expect(findCircleName(names, directions)).toBe('Elarzris');
-        
-        const data = readTestData(`./src/day1/notes2.txt`);
     })
 
-    test('part2 - notes', () => {
+    test('part2', () => {
         const data = readTestData(`./src/day1/notes2.txt`);
         expect(findCircleName(data[0], data[1])).toBe('Rahris');
     })
@@ -32,7 +30,7 @@ describe(`day 1`, () => {
         expect(swapCircleName(names, directions)).toBe('Drakzyph');
     })
 
-    test('part3 - notes', () => {
+    test('part3', () => {
         const data = readTestData(`./src/day1/notes3.txt`);
         expect(swapCircleName(data[0], data[1])).toBe('Ralrex');
     })

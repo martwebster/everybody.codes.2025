@@ -9,8 +9,20 @@ describe(`day ${dayNumber}`, () => {
         expect(exampleFunction('1')).toBe(1);
     })
 
-    test('part1', () => {
+    test('part - 1', () => {
         const data = readTestData(`./src/day${dayNumber}/notes1.txt`);
+        const sum = data.map(line => exampleFunction(line)).sum();
+        expect(sum).toBe(6);
+    })
+
+    test('part - 2', () => {
+        const data = readTestData(`./src/day${dayNumber}/notes2.txt`);
+        const sum = data.map(line => exampleFunction(line)).sum();
+        expect(sum).toBe(6);
+    })
+
+    test('part - 3', () => {
+        const data = readTestData(`./src/day${dayNumber}/notes3.txt`);
         const sum = data.map(line => exampleFunction(line)).sum();
         expect(sum).toBe(6);
     })
