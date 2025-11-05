@@ -1,49 +1,29 @@
+
+// Part 1
 export const findContainers = (line: string): number | undefined => {
-
-    var numbers =  line.split(",").toNumbers().sortDescending();
-
-    var total = 0;
-    var last = 0;
-    for (var value of numbers){
-        if (value === last){
-            continue;
-        }
-        total = total + value;
-        last = value;
-    }
-    return total;
+    var numbers =  line.split(",").toNumbers();
+    return Array.from(new Set(numbers)).sum();
 }
 
-
+// Part 2
 export const findLowestContainer = (line: string): number | undefined => {
 
-    var numbers =  line.split(",").toNumbers().sortAscending();
+    var numbers =  line.split(",").toNumbers();
 
-    var total = 0;
-    var last = 0;
-    var count = 0;
-
-    for (var value of numbers){
-        if (value === last){
-            continue;
-        }
-        total = total + value;
-        last = value;
-        count++;
-        if (count ==20){
-            break;
-        }
-    }
-    return total;
+    return Array.from(new Set(numbers))
+        .sortAscending()
+        .slice(0,20)
+        .sum();
 }
 
+// Part 3
 export const packCreates = (line: string): number | undefined => {
 
-    var numbers =  line.split(",").toNumbers().sortDescending();
+    var numbers =  line.split(",").toNumbers();
 
     var groups = numbers.groupByCount();
 
-    var sortedGroups = Array.from(groups.entries()).sort((a, b) => b[1] - a[1]);
-    
-    return sortedGroups.first()?.[1]
+    return Array.from(groups.entries())
+        .sort((a, b) => b[1] - a[1])
+        .first()?.[1]
 }
