@@ -30,7 +30,6 @@ describe(`day 2`, () => {
         console.log(val)
         var val = cycle(val, a)
         console.log(val)
-        
     })
 
 
