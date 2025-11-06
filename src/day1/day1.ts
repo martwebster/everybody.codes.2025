@@ -1,4 +1,4 @@
-import { LinkedList } from "../utility/LinkedList";
+import { LinkedList } from "../utility/linkedList";
 
 
 // Part 1
