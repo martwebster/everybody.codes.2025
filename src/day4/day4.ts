@@ -2,16 +2,16 @@ export const calculatePart3 = (data: string[]): number => {
     const start = parseInt(data.first()!);
     const end = parseInt(data.last()!);
 
-    const gears = data.filter(line => line.includes("|"));
+    const joinedGears = data.filter(line => line.includes("|"));
     let previousGear = start;
-    let total = 1;
+    let ratio = 1;
 
-    for (const gear of gears) {
+    for (const gear of joinedGears) {
         const [leftGear, rightGear] = gear.split("|").toNumbers();
-        total *= previousGear / leftGear;
+        ratio *= previousGear / leftGear;
         previousGear = rightGear;
     }
 
-    total *= previousGear / end;
-    return Math.trunc(total * 100);   
+    ratio *= previousGear / end;
+    return Math.trunc(ratio * 100);   
 }
