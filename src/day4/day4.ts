@@ -1,19 +1,17 @@
 export const calculatePart3 = (data: string[]): number => {
+    const start = parseInt(data.first()!);
+    const end = parseInt(data.last()!);
 
-    var start = Number(data[0]);
-    var end = Number(data.last());
+    const gears = data.filter(line => line.includes("|"));
+    let previousGear = start;
+    let total = 1;
 
-    var gears = data.filter (it => it.indexOf("|")> -1);
-    var currentGear = start;
-    var total = 1;
-    for (var gear of gears){
-        var gearValue = Number(gear.substringBefore("|"));
-
-        total = total * (currentGear/gearValue)
-
-        var currentGear = Number(gear.substringAfter("|"));
+    for (const gear of gears) {
+        const [leftGear, rightGear] = gear.split("|").toNumbers();
+        total *= previousGear / leftGear;
+        previousGear = rightGear;
     }
-    total = total * (currentGear/end)
-    return Math.trunc(total * 100)
-    
+
+    total *= previousGear / end;
+    return Math.trunc(total * 100);   
 }
