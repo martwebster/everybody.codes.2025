@@ -1,3 +1,5 @@
+import { LinkedList } from "../utility/linkedList";
+
 export const exampleFunction = (line: string): number | undefined => {
     return Number(line);
 }
@@ -61,7 +63,6 @@ export const calculateSearchBlock = (
         searchString = searchString + line.substring(0, (endPos - line.length) +1 )
     }
     return searchString;
-
 }
 
 export const calculateBlock = (line: string, distance: number, repeatStart: boolean, repeatEnd: boolean): number =>{
